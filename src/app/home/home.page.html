@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Imperative Modal </ion-title>
+    <ion-title> Declarative Modal </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button color="primary" (click)="openModal()">Open modal</ion-button>
+  <ion-button color="primary" (click)="modalIsOpen$.next(true)">
+    Open modal
+  </ion-button>
 </ion-content>
+
+<ion-modal
+  [isOpen]="modalIsOpen$ | async"
+  (ionModalDidDismiss)="handleDismiss($event)"
+>
+  <ng-template>
+    <app-hello></app-hello>
+  </ng-template>
+</ion-modal>

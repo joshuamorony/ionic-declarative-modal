@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { HelloComponent } from './ui/hello/hello.component';
+import { OverlayEventDetail } from '@ionic/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +9,17 @@ import { HelloComponent } from './ui/hello/hello.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {
-  constructor(private modalCtrl: ModalController) {}
+  public modalIsOpen$ = new BehaviorSubject(false);
 
-  async openModal() {
-    const modal = await this.modalCtrl.create({
-      component: HelloComponent,
-    });
+  constructor() {}
 
-    await modal.present();
+  handleDismiss(ev: Event) {
+    this.modalIsOpen$.next(false);
 
-    const { data } = await modal.onDidDismiss();
+    const {
+      detail: { data },
+    } = ev as CustomEvent<OverlayEventDetail>;
+
     console.log(data);
   }
 }
