@@ -1,0 +1,7 @@
+{
+  "name": "declarative-modal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
